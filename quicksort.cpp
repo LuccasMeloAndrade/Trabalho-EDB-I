@@ -1,33 +1,47 @@
 #include <iostream>
 #include "cabecalho.h"
 
-int particao(int *vet, int inicio, int fim){
-    int pivo = (vet[inicio] + vet[fim] + vet[(inicio + fim) / 2]) / 3; // pivo com mediana 3
+using namespace std;
 
-    while (inicio < fim)
-    {
-        while (inicio < fim && vet[inicio] <= pivo) // avança o indice da esquerda
-        {
-            inicio++;
+int particao(int *vet, int inicio, int fim){
+
+    int pivo = vet[(inicio + fim) / 2];  // escolha do pivo
+
+    int i = inicio;                      // indice da esquerda
+    int j = fim;                         // indice da direita
+
+    while(i <= j){
+
+        while(vet[i] < pivo){           // avança para direita
+            i++;
         }
-        while (inicio < fim && vet[fim] >= pivo)    // regride o indice da direita
-        {
-            fim--;
+
+        while(vet[j] > pivo){          // avança para esquerda
+            j--;
         }
-        // troca os elementos
-        int aux;
-        aux = vet[inicio];
-        vet[inicio] = vet[fim];
-        vet[fim] = aux;
+
+        //troca
+        if(i <= j){
+
+            int aux = vet[i];
+            vet[i] = vet[j];
+            vet[j] = aux;
+
+            i++;
+            j--;
+        }
     }
-    return inicio; // retorna o meio
+    //retorna a posição
+    return i;
 }
 
 void quicksort(int *vet, int inicio, int fim){
-    if (inicio < fim)
-    {
-        int posicao = particao(vet, inicio, fim); // posiçao do meio
-        quicksort(vet, inicio, posicao);          // ordena o lado esquerdo do pivo
-        quicksort(vet, posicao + 1, fim);         // ordena o lado direito do pivo
+
+    if(inicio < fim){
+
+        int posicao = particao(vet, inicio, fim); // acha a posição central
+
+        quicksort(vet, inicio, posicao - 1);      // organiza o lado esquerdo
+        quicksort(vet, posicao, fim);             // organiza o lado direito
     }
 }

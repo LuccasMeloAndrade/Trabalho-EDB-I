@@ -2,14 +2,14 @@
 #include "cabecalho.h"
 
 int busca_sequencial(int *vet, int tamanho, int chave){
-    int i;
 
-    for ( i = 0; i < tamanho; i++)     // percorre todo o vetor
+    for(int i = 0; i < tamanho; i++)
     {
-        if (vet[i] == chave)           // encontrou a chave
+        if(vet[i] == chave)
         {
-            return i;                  // retorna a posição
+            return i;
         }
-        return -1;                     // chave não encontrada
     }
+
+    return -1;
 }

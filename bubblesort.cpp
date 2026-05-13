@@ -1,4 +1,3 @@
-#include <iostream>
 #include "cabecalho.h"
 
 void bubblesort(int *vet, int tam){
